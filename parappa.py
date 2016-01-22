@@ -1,5 +1,6 @@
 from ap_results import APReporting
 from ms_results import MSReporting
+from config import ConfigPaRappa
 import argparse
 import sys
 import time
@@ -8,7 +9,8 @@ import os
 
 def main():
     #Initializing variables etc
-    conf_args = config()
+    config = ConfigPaRappa()
+    conf_args = config.config()
     state = conf_args.state.upper()
     edate = conf_args.date
     number_calls = conf_args.calls
@@ -18,11 +20,14 @@ def main():
     db_user = conf_args.username
     db_pword = conf_args.password
     bucket = conf_args.bucket
-    clear = lambda: os.system("cls" if os.name == "nt" else "clear")
     ms_newresult = 0
     logging.captureWarnings(True)
 
+    clear = lambda: os.system("cls" if os.name == "nt" else "clear")
+
     while number_calls > 0:
+        print "Election Feed for ", state, " on ", edate
+
         APReporting(state, edate, test, db_user, db_pword, host, db_name, bucket)
 
         if state == "IA" and ms_newresult == 0:
@@ -54,57 +59,7 @@ def main():
 
         clear()
 
-def config(args=None):
-    parser = argparse.ArgumentParser(description = "Election Night Result Tracker")
-    parser.add_argument("-st", "--state",
-                        help = "State abbreviation for election to get results.",
-                        required = True,
-                        type = str
-                        )
-    parser.add_argument("-D", "--date",
-                        help = "Date of election [YYYY-MM-DD]",
-                        required = True,
-                        type = str
-                        )
-    parser.add_argument("-c", "--calls",
-                        help = "Number of calls that you would like to make to the API",
-                        required = True,
-                        type = int
-                        )
-    parser.add_argument("-t", "--test",
-                        help = "Number of calls that you would like to make to the API",
-                        required = False,
-                        default = False
-                        )
-    parser.add_argument("-H", "--host",
-                        help = "Database host",
-                        required = False,
-                        default = None
-                        )
-    parser.add_argument("-d", "--database_name",
-                        help = "Name of the database",
-                        required = False,
-                        default = None
-                        )
-    parser.add_argument("-u", "--username",
-                        help = "Username for the database",
-                        required = False,
-                        default = None
-                        )
-    parser.add_argument("-P", "--password",
-                        help = "Password for the database",
-                        required = False,
-                        default = None
-                        )
-    parser.add_argument("-b", "--bucket",
-                        help = "Destination S3 bucket",
-                        required = False,
-                        default = None
-                        )
-    arguments = parser.parse_args(args)
-
-    return arguments
-
 if __name__ == "__main__":
-    print "Welcome to the Junto Election Night Resuts Tracker. \nPlease make sure that you have configured boto3 using aws configure."
+    print "Welcome to the Junto Election Night Resuts Tracker."
+    print "Please make sure that you have configured boto3 using aws configure."
     main()

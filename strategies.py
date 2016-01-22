@@ -1,4 +1,5 @@
 from datetime import datetime as dt
+import pandas as pd
 import csv
 
 class ElectionStrategies:
@@ -30,33 +31,6 @@ class ElectionStrategies:
 
         return filename
 
-    def ms_processing(self, election_json):
-        filename = "ms_feed_IA_{}.csv".format(dt.now().strftime("%Y%m%d%H%M%S"))
-        f = open(filename, "wb+")
-        results = csv.writer(f)
-
-        results.writerow(["county",
-                          "fipscode",
-                          "precinct",
-                          "candidate",
-                          "votes"
-                      ])
-
-        for precinct in election_json:
-          candidates = precinct["Candidates"]
-
-          for candidate in candidates:
-            results.writerow([precinct["County"]["Name"],
-                              precinct["County"]["FIPSCode"],
-                              precinct["Precinct"]["Name"],
-                              candidate["last"],
-                              candidate["voteCount"]
-                          ])
-
-        f.close()
-
-        return filename
-
     def widen_table(self,filename):
         initial_results = pd.read_csv(filename)
         initial_results.sort_values(["reportingunitName","candidateLast"],
@@ -75,6 +49,40 @@ class ElectionStrategies:
           pass
 
         wide_results.to_csv("apwide.csv", header = False)
+
+
+    def ms_processing(self, election_json):
+        filename = "ms_IA_{}.csv".format(dt.now().strftime("%Y%m%d%H%M%S"))
+        f = open(filename, "wb+")
+        results = csv.writer(f)
+
+        results.writerow(["county",
+                          "fipscode",
+                          "precinct",
+                          "candidate",
+                          "votes",
+                          "isWinner",
+                          "WinPercentage"
+                      ])
+
+        for precinct in election_json:
+          candidates = precinct["Candidates"]
+
+          for candidate in candidates:
+            results.writerow([precinct["County"]["Name"],
+                              precinct["County"]["FIPSCode"],
+                              precinct["Precinct"]["Name"],
+                              candidate["Candidate"]["LastName"],
+                              candidate.get("Result", 0),
+                              candidate.get("IsWinner", False),
+                              candidate.get("WinPercentage", 0)
+                          ])
+
+        f.close()
+
+        ms_df = pd.read_csv(filename)
+
+        return filename
 
 ############################# PRIVATE FUNCTIONS  ###############################
 ### These functions are used to process data so that Tableau can properly    ###
