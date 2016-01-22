@@ -19,4 +19,4 @@ class MSReporting:
         election = ElectionStrategies()
         ms_filename = election.ms_processing(ms_results)
         BotoClient(ms_filename, bucket)
-        print "Processed and loaded Microsoft Data"
+        print "Microsoft data processed and loaded"
