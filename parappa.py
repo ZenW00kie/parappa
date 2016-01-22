@@ -4,6 +4,7 @@ import argparse
 import sys
 import time
 import logging
+import os
 
 def main():
     #Initializing variables etc
@@ -18,14 +19,14 @@ def main():
     db_pword = conf_args.password
     bucket = conf_args.bucket
     clear = lambda: os.system("cls" if os.name == "nt" else "clear")
-    ms_results = 0
+    ms_newresult = 0
     logging.captureWarnings(True)
 
     while number_calls > 0:
-        APReporting(state, edate, test)
+        APReporting(state, edate, test, db_user, db_pword, host, db_name, bucket)
 
         if state == "IA" and ms_newresult == 0:
-            MSReporting()
+            MSReporting(bucket)
         else:
             pass
 

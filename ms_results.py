@@ -4,9 +4,11 @@ from boto_client import BotoClient
 
 class MSReporting:
 
-    def __init__(self):
+    def __init__(self, bucket):
         print "Requesting from Microsoft API"
-        ms_results = APICalls("MS")
-        ms_filename = ElectionStrategies.ms_processing(ms_results)
+        ms_call = APICalls("MS")
+        ms_results = ms_call.ms_results
+        election = ElectionStrategies()
+        ms_filename = election.ms_processing(ms_results)
         BotoClient(ms_filename, bucket)
         print "Processed and loaded Microsoft Data"

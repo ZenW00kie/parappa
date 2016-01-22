@@ -1,6 +1,10 @@
 from datetime import datetime as dt
+import csv
 
 class ElectionStrategies:
+
+    def __init(self):
+        pass
 
     def ap_init(self,state, results):
         no_fips = ["NH"]
@@ -18,15 +22,15 @@ class ElectionStrategies:
         f = open(filename, "wb+")
 
         if self.fips_process == False:
-            nofips_processing(results,f,state)
+            self.__nofips_processing(results,f,state)
         elif self.fips_process == True:
-            fips_processing(results,f)
+            self.__fips_processing(results,f)
         else:
             pass
 
         return filename
 
-    def ms_processing(self, results):
+    def ms_processing(self, election_json):
         filename = "ms_feed_IA_{}.csv".format(dt.now().strftime("%Y%m%d%H%M%S"))
         f = open(filename, "wb+")
         results = csv.writer(f)
@@ -38,7 +42,7 @@ class ElectionStrategies:
                           "votes"
                       ])
 
-        for precinct in json_data:
+        for precinct in election_json:
           candidates = precinct["Candidates"]
 
           for candidate in candidates:
@@ -88,7 +92,7 @@ class ElectionStrategies:
                           "voteCount"
                       ])
 
-        for ru in json_ru:
+        for ru in election_json:
           candidates = ru["candidates"]
           for candidate in candidates:
             results.writerow([ru["reportingunitName"],
@@ -100,7 +104,6 @@ class ElectionStrategies:
                           ])
 
         f.close()
-        return filename
 
     def __nofips_processing(self, election_json, f):
         results = csv.writer(f)
@@ -125,4 +128,3 @@ class ElectionStrategies:
                               self.state
                           ])
         f.close()
-        return filename

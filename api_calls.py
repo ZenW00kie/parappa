@@ -6,11 +6,9 @@ class APICalls:
 
     def __init__(self, service, state=None, edate=None, test=None):
         if service == 'AP':
-            ap_topline, ap_results = self.__ap_request(state, edate, test)
-            return ap_topline, ap_results
+            self.ap_topline, self.ap_results = self.__ap_request(state, edate, test)
         elif service == 'MS':
-            ms_results = self.__ms_request()
-            return ms_results
+            self.ms_results = self.__ms_request()
 
 ############################# PRIVATE FUNCTIONS  ###############################
 
@@ -29,7 +27,7 @@ class APICalls:
                 }
             )
             print('AP Response: {status_code}'.format(
-                status_code=response.status_code)
+                status_code=response.status_code))
 
             json_data = json.loads(response.content)
             json_ru = json_data['races'][0]['reportingUnits']
@@ -42,7 +40,7 @@ class APICalls:
             print 'AP Request failed'
 
         #Microsoft only provides results for IA so calls are very simple
-    def __ms_request():
+    def __ms_request(self):
         try:
             response = requests.get(
                 url="https://www.iagopcaucuses.com/api/PrecinctCandidateResults"

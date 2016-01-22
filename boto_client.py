@@ -4,17 +4,16 @@ import os
 
 class BotoClient:
 
-    def __init__(self):
+    def __init__(self, filename, bucket_name):
         s3 = boto3.client('s3')
-        transfer = S3Transfer(s3)
-        s3_connect(filename, bucket_name)
+        self.transfer = S3Transfer(s3)
+        self.__s3_connect(filename, bucket_name)
 
 ############################# PRIVATE FUNCTIONS  ###############################
 
     def __s3_connect(self, filename, bucket_name):
-        transfer.upload_file(filename,
+        self.transfer.upload_file(filename,
                             bucket_name,
                             filename
                            )
         os.remove(filename)
-        os.remove('apwide.csv')
