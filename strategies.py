@@ -1,1 +1,128 @@
-#Strategies for reporting units by state
+from datetime import datetime as dt
+
+class ElectionStrategies:
+
+    def ap_init(self,state, results):
+        no_fips = ["NH"]
+        fips = ["IA"]
+        self.state = state
+
+        if self.state in no_fips:
+            self.fips_process = False
+        elif self.state in fips:
+            self.fips_process = True
+        else:
+            pass
+
+        filename= "ap_{}_{}.csv".format(state,dt.now().strftime("%Y%m%d%H%M%S"))
+        f = open(filename, "wb+")
+
+        if self.fips_process == False:
+            nofips_processing(results,f,state)
+        elif self.fips_process == True:
+            fips_processing(results,f)
+        else:
+            pass
+
+        return filename
+
+    def ms_processing(self, results):
+        filename = "ms_feed_IA_{}.csv".format(dt.now().strftime("%Y%m%d%H%M%S"))
+        f = open(filename, "wb+")
+        results = csv.writer(f)
+
+        results.writerow(["county",
+                          "fipscode",
+                          "precinct",
+                          "candidate",
+                          "votes"
+                      ])
+
+        for precinct in json_data:
+          candidates = precinct["Candidates"]
+
+          for candidate in candidates:
+            results.writerow([precinct["County"]["Name"],
+                              precinct["County"]["FIPSCode"],
+                              precinct["Precinct"]["Name"],
+                              candidate["last"],
+                              candidate["voteCount"]
+                          ])
+
+        f.close()
+
+        return filename
+
+    def widen_table(self,filename):
+        initial_results = pd.read_csv(filename)
+        initial_results.sort_values(["reportingunitName","candidateLast"],
+                                      inplace=True
+                                  )
+        wide_results = initial_results.pivot_table(index=["reportingunitName",
+                                                          "fipsCode",
+                                                          "precinctsTotal",
+                                                          "precinctsReporting"
+                                                          ],
+                                                   columns="candidateLast"
+                                                  )
+        if self.fips_process == False:
+            wide_results["state"] = self.state
+        else:
+          pass
+
+        wide_results.to_csv("apwide.csv", header = False)
+
+############################# PRIVATE FUNCTIONS  ###############################
+### These functions are used to process data so that Tableau can properly    ###
+### map the geographies. For states that have reporting units without FIPS   ###
+### they need to have the state abbreviation in the table.                   ###
+################################################################################
+
+    def __fips_processing(self, election_json, f):
+        results = csv.writer(f)
+        results.writerow(["reportingunitName",
+                          "fipsCode",
+                          "precinctsTotal",
+                          "precinctsReporting",
+                          "candidateLast",
+                          "voteCount"
+                      ])
+
+        for ru in json_ru:
+          candidates = ru["candidates"]
+          for candidate in candidates:
+            results.writerow([ru["reportingunitName"],
+                              ru["fipsCode"],
+                              ru["precinctsTotal"],
+                              ru["precinctsReporting"],
+                              candidate["last"],
+                              candidate["voteCount"]
+                          ])
+
+        f.close()
+        return filename
+
+    def __nofips_processing(self, election_json, f):
+        results = csv.writer(f)
+        results.writerow(["reportingunitName",
+                          "fipsCode",
+                          "precinctsTotal",
+                          "precinctsReporting",
+                          "candidateLast",
+                          "voteCount",
+                          "state"
+                      ])
+
+        for ru in election_json:
+          candidates = ru["candidates"]
+          for candidate in candidates:
+            results.writerow([ru["reportingunitName"].upper(),
+                              ru["fipsCode"],
+                              ru["precinctsTotal"],
+                              ru["precinctsReporting"],
+                              candidate["last"],
+                              candidate["voteCount"],
+                              self.state
+                          ])
+        f.close()
+        return filename

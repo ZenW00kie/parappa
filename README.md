@@ -1,4 +1,4 @@
-#Welcome to the Junto Election Night Reporting system
+#The Junto Election Night Reporting System
 
 ##Intro
 
