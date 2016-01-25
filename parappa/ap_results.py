@@ -31,7 +31,7 @@ class APReporting:
         if host == None:
             pass
         else:
-            ElectionStrategies.widen_table(filename)
+            election.widen_table(filename)
             DatabaseConnector(db_user, db_pword, host, db_name, filename, st)
             DatabaseConnector(db_user, db_pword, host, db_name, "apwide.csv", st)
 
