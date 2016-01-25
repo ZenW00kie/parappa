@@ -23,7 +23,7 @@ class ElectionStrategies:
         f = open(filename, "wb+")
 
         if self.fips_process == False:
-            self.__nofips_processing(results,f,state)
+            self.__nofips_processing(results,f)
         elif self.fips_process == True:
             self.__fips_processing(results,f)
         else:
