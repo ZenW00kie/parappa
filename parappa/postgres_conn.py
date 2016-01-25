@@ -6,8 +6,8 @@ import os
 class DatabaseConnector:
 
     def __init__(self, db_username, db_password, db_host, db_name, fname, st):
-        engine = self.connect_sql(db_username, db_password, db_host, db_name)
-        load_data(engine, fname, st)
+        engine = self.__connect_sql(db_username, db_password, db_host, db_name)
+        self.__load_data(engine, fname, st)
 
 ############################# PRIVATE FUNCTIONS  ###############################
 
