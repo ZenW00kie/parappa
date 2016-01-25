@@ -1,7 +1,6 @@
 from ap_results import APReporting
 from ms_results import MSReporting
 from config import ConfigPaRappa
-import argparse
 import sys
 import time
 import logging

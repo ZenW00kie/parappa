@@ -3,7 +3,7 @@ import argparse
 class ConfigPaRappa:
     def __init__(self):
         pass
-        
+
     def config(self,args=None):
         parser = argparse.ArgumentParser(description = "Election Night Result Tracker")
         parser.add_argument("-st", "--state",
@@ -22,7 +22,7 @@ class ConfigPaRappa:
                             type = int
                             )
         parser.add_argument("-t", "--test",
-                            help = "Number of calls that you would like to make to the API",
+                            help = "Boolean for using test results, default is False",
                             required = False,
                             default = False
                             )

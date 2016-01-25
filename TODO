@@ -1,0 +1,10 @@
+#TODO
+
+Require AP API key (Not in production code for this round)
+Test DB connections w/ Minas Morgul
+Load onto instances
+Run through pre E-day
+Figure out way to reduce available command line arguments
+Write pipe to bang_dewey
+Clean up file structure etc
+If no S3 bucket is given write to data folder
