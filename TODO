@@ -8,3 +8,4 @@ Figure out way to reduce available command line arguments
 Write pipe to bang_dewey
 Clean up file structure etc
 If no S3 bucket is given write to data folder
+If exception for AP have the whole thing stop. If exception for MS just pass

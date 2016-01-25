@@ -36,10 +36,9 @@ class APICalls:
             return (topline, json_ru)
 
         except requests.exceptions.RequestException:
-
             print 'AP Request failed'
 
-        #Microsoft only provides results for IA so calls are very simple
+    #Microsoft only provides results for IA so calls are very simple
     def __ms_request(self):
         try:
             precinct_level = requests.get(
