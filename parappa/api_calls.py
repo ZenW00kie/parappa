@@ -42,7 +42,7 @@ class APICalls:
     def __ms_request(self):
         try:
             precinct_level = requests.get(
-                url="https://www.iagopcaucuses.com/api/PrecinctCandidateResults"
+                url="https://www.iagopcaucuses.com/api/PrecinctCandidateResults", verify=False
             )
 
             print('Microsoft Response: {status_code}'.format(
@@ -52,7 +52,7 @@ class APICalls:
             json_data = json_data['PrecinctResults']
 
             state_level = requests.get(
-                url="https://www.iagopcaucuses.com/api/StateCandidateResults"
+                url="https://www.iagopcaucuses.com/api/StateCandidateResults", verify=False
             )
 
             topline = json.loads(state_level.content)
