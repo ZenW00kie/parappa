@@ -23,7 +23,7 @@ class APReporting:
                 print candidate["last"],": ",candidate["voteCount"],"votes"
         else:
             for candidate in ap_topline["candidates"]:
-                print candidate["last"],": ",round((candidate["voteCount"]/votetotal)*100,2),"% ",candidate["voteCount"],"votes"
+                print candidate["last"],": ",round((float(candidate["voteCount"])/votetotal)*100,2),"% ",candidate["voteCount"],"votes"
 
         election = ElectionStrategies()
         filename = election.ap_init(st, ap_results)
