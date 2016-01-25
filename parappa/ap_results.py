@@ -12,7 +12,7 @@ class APReporting:
         ap_results = apapi_call.ap_results
 
         print "Most recent results for ", st
-        print "Precincts reporting: ", ap_topline["precinctsReportingPct"]
+        print "Precincts reporting: ", ap_topline["precinctsReportingPct"],"%"
 
         votetotal = 0
         for candidate in ap_topline["candidates"]:
