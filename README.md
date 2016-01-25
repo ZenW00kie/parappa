@@ -34,3 +34,5 @@ The following arguments are made available to you:
   -b BUCKET, --bucket BUCKET [Destination S3 bucket] *
 
   - * required argument
+
+<sub> Brought to you by Jeb 2016 </sub>
