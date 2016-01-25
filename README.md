@@ -20,18 +20,20 @@ Pa Rappa also has the ability to write to PostgreSQL so, which is currently bein
 
 ##Using Pa Rappa Tha Wrappa
 
-Pa Rappa makes calls to the AP's API for a certain election that the user must specify. The data is then saved in csv format to a S3 bucket within the Junto system called election-day. The data is also loaded into a database in both "long" and "wide" formats for visualization purposes.
+Pa Rappa makes calls to the AP's API for a certain election that the user must specify.
+The data is then saved in csv format to a S3 bucket within the Junto system called election-day.
+The data is also loaded into a database in both "long" and "wide" formats for visualization purposes.
 
 The following arguments are made available to you:
-  -st STATE, --state STATE [State abbreviation for election to get results.] *
-  -D DATE, --date DATE  [Date of election [YYYY-MM-DD]] *
-  -c CALLS, --calls CALLS [Number of calls that to make to the API] *
-  -t TEST, --test TEST  [Boolean for using test results, default is False]
-  -H HOST, --host HOST  [Database host]
-  -d DATABASE_NAME, --database_name DATABASE_NAME [Name of the database]
-  -u USERNAME, --username USERNAME [Username for the database]
-  -P PASSWORD, --password PASSWORD [Password for the database]
-  -b BUCKET, --bucket BUCKET [Destination S3 bucket] *
+  - st STATE, --state STATE [State abbreviation for election to get results.] *
+  - D DATE, --date DATE  [Date of election [YYYY-MM-DD]] *
+  - c CALLS, --calls CALLS [Number of calls that to make to the API] *
+  - t TEST, --test TEST  [Boolean for using test results, default is False]
+  - H HOST, --host HOST  [Database host]
+  - d DATABASE_NAME, --database_name DATABASE_NAME [Name of the database]
+  - u USERNAME, --username USERNAME [Username for the database]
+  - P PASSWORD, --password PASSWORD [Password for the database]
+  - b BUCKET, --bucket BUCKET [Destination S3 bucket] *
 
   - * required argument
 
