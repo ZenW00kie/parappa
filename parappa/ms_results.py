@@ -10,13 +10,17 @@ class MSReporting:
         ms_call = APICalls("MS")
         ms_results = ms_call.ms_results
         ms_topline = ms_call.ms_topline
-        print "Most Microsoft recent results for IA"
-        print "Precincts reporting: ", round((ms_topline.get('PrecinctsReporting',0)/ms_topline['TotalPrecincts'])*100,2)
+        if ms_topline != None:
+            print "Most Microsoft recent results for IA"
+            print "Precincts reporting: ", round((ms_topline.get('PrecinctsReporting',0)/ms_topline.get('TotalPrecincts'))*100,2)
 
-        for candidate in ms_topline['StateResults']:
-            print candidate['Candidate']['LastName'], ": ", round((candidate.get('WinPercentage',0))*100,2), "% ",int(candidate.get('Result',0))
+            for candidate in ms_topline['StateResults']:
+                print candidate['Candidate']['LastName'], ": ", round((candidate.get('WinPercentage',0))*100,2), "% ",int(candidate.get('Result',0))
 
-        election = ElectionStrategies()
-        ms_filename = election.ms_processing(ms_results)
-        BotoClient(ms_filename, bucket)
-        print "Microsoft data processed and loaded"
+            election = ElectionStrategies()
+            ms_filename = election.ms_processing(ms_results)
+            BotoClient(ms_filename, bucket)
+            print "Microsoft data processed and loaded"
+
+        else:
+            print "Microsoft API unreachable."

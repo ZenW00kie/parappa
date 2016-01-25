@@ -48,16 +48,21 @@ class APICalls:
             print('Microsoft Response: {status_code}'.format(
                 status_code=precinct_level.status_code))
 
-            json_data = json.loads(precinct_level.content)
-            json_data = json_data['PrecinctResults']
+            if precinct_level.status_code == 200:
+                json_data = json.loads(precinct_level.content)
+                json_data = json_data['PrecinctResults']
 
-            state_level = requests.get(
-                url="https://www.iagopcaucuses.com/api/StateCandidateResults", verify=False
-            )
+                state_level = requests.get(
+                    url="https://www.iagopcaucuses.com/api/StateCandidateResults", verify=False
+                )
 
-            topline = json.loads(state_level.content)
+                topline = json.loads(state_level.content)
 
-            return topline, json_data
+                return topline, json_data
+            else:
+                topline = None
+                json_data = None
+                return topline, json_data
 
         except requests.exceptions.RequestException:
             print 'Microsoft Request failed'
