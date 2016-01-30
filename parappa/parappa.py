@@ -47,7 +47,7 @@ def main():
 
         #Calls to the AP are made every 10 seconds to avoid overuse
         if number_calls >0:
-          for i in xrange(10,0,-1):
+          for i in xrange(10,-1,-1):
               time.sleep(1)
               sys.stdout.write(str(i)+" ")
               sys.stdout.flush()

@@ -35,6 +35,6 @@ The following arguments are made available to you:
   - P PASSWORD, --password PASSWORD [Password for the database]
   - b BUCKET, --bucket BUCKET [Destination S3 bucket] *
 
-  - * required argument
+  * required argument
 
 <sub> Brought to you by the moles helping Jeb Bush </sub>
