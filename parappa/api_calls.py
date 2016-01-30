@@ -13,32 +13,47 @@ class APICalls:
 ############################# PRIVATE FUNCTIONS  ###############################
 
     def __ap_request(self, state=None, edate=None, test=None):
+        if test == "True":
+            request_params={
+                "apiKey": "RfvlGfRM69HT4FqUrGBctEBpRbCANTsV",
+                "statePostal": state,
+                "officeID": "P",
+                "level": "RU",
+                "party": "GOP",
+                "format": "json",
+                "test": "True"
+            }
+        else:
+            request_params={
+                "apiKey": "RfvlGfRM69HT4FqUrGBctEBpRbCANTsV",
+                "statePostal": state,
+                "officeID": "P",
+                "level": "RU",
+                "party": "GOP",
+                "format": "json"
+            }
+
         try:
             response = requests.get(
                 url="https://api.ap.org/v2/elections/{}".format(edate),
-                params={
-                    "apiKey": "RfvlGfRM69HT4FqUrGBctEBpRbCANTsV",
-                    "statePostal": state,
-                    "officeID": "P",
-                    "level": "RU",
-                    "party": "GOP",
-                    "format": "json",
-                    "test": test
-                }
+                params = request_params
+
             )
             print('AP Response: {status_code}'.format(
                 status_code=response.status_code))
 
             json_data = json.loads(response.content)
 
-            try:
+            if json_data['races'][0].get('reportingUnits', 0) != 0:
                 json_ru = json_data['races'][0]['reportingUnits']
                 topline = json_ru.pop(0)
                 return (topline, json_ru)
 
-            except KeyError:
+            else:
                 print 'AP Results have not started streaming.'
-                raise NameError('No results')
+                topline = None
+                json_ru = None
+                return (topline, json_ru)
 
         except requests.exceptions.RequestException:
             print 'AP Request failed'
