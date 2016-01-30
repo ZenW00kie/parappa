@@ -30,10 +30,15 @@ class APICalls:
                 status_code=response.status_code))
 
             json_data = json.loads(response.content)
-            json_ru = json_data['races'][0]['reportingUnits']
-            topline = json_ru.pop(0)
 
-            return (topline, json_ru)
+            try:
+                json_ru = json_data['races'][0]['reportingUnits']
+                topline = json_ru.pop(0)
+                return (topline, json_ru)
+
+            except KeyError:
+                print 'AP Results have not started streaming.'
+                raise NameError('No results')
 
         except requests.exceptions.RequestException:
             print 'AP Request failed'

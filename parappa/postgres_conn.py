@@ -14,8 +14,10 @@ class DatabaseConnector:
     def __load_data(self, engine, filename, state):
         if filename == 'apwide.csv':
             table = 'reported_x_candidate_votes'
+            psql_copy = "COPY {}.{} FROM STDIN WITH CSV".format(state, table)
         else:
             table = 'reported_votes'
+            psql_copy = "COPY {}.{} FROM STDIN WITH CSV HEADER".format(state, table)
 
         connect = engine.connect()
         connect = engine.connect()
@@ -25,7 +27,6 @@ class DatabaseConnector:
 
         ses = sessionmaker(bind=engine)
         dbcopy_f = open(filename,'r')
-        psql_copy = "COPY {}.{} FROM STDIN WITH CSV HEADER".format(state, table)
 
         conn = engine.raw_connection()
         cur = conn.cursor()
