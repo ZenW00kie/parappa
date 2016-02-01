@@ -30,7 +30,7 @@ def main():
 
         APReporting(state, edate, test, party, db_user, db_pword, host, db_name, bucket)
 
-        if state == "IA" and ms_newresult == 0:
+        if state == "IA" and ms_newresult == 0 and party == 'GOP':
             MSReporting(bucket)
         else:
             pass
@@ -47,11 +47,17 @@ def main():
         print "Time until next call:"
 
         #Calls to the AP are made every 10 seconds to avoid overuse
-        if number_calls >0:
+        if number_calls >0 and party == 'GOP':
           for i in xrange(10,-1,-1):
               time.sleep(1)
               sys.stdout.write(str(i)+" ")
               sys.stdout.flush()
+
+        elif number_calls >0 and party == 'Dem':
+            for i in xrange(60,-1,-1):
+                time.sleep(1)
+                sys.stdout.write(str(i)+" ")
+                sys.stdout.flush()
 
         else:
           print "All calls in this session have been completed."
