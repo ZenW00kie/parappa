@@ -5,9 +5,9 @@ from boto_client import BotoClient
 
 class APReporting:
 
-    def __init__(self, st, edate, test, db_user, db_pword, host, db_name, s3):
+    def __init__(self, st, edate, test,party, db_user, db_pword, host, db_name, s3):
         print "Requesting from AP API"
-        apapi_call = APICalls("AP", st, edate, test)
+        apapi_call = APICalls("AP", st, edate, test, party)
         ap_top = apapi_call.ap_topline
         ap_results = apapi_call.ap_results
 
@@ -26,7 +26,7 @@ class APReporting:
                     print candidate["last"],": ",round((float(candidate["voteCount"])/votetotal)*100,2),"% ",candidate["voteCount"],"votes"
 
             election = ElectionStrategies()
-            filename = election.ap_init(st, ap_results)
+            filename = election.ap_init(st, ap_results,party)
 
             if host == None:
                 pass

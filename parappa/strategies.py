@@ -7,7 +7,7 @@ class ElectionStrategies:
     def __init(self):
         pass
 
-    def ap_init(self,state, results):
+    def ap_init(self,state, results, party):
         no_fips = ["NH"]
         fips = ["IA"]
         self.state = state
@@ -19,7 +19,7 @@ class ElectionStrategies:
         else:
             pass
 
-        filename= "ap_{}_{}.csv".format(state,dt.now().strftime("%Y%m%d%H%M%S"))
+        filename= "ap_{}_{}_{}.csv".format(party,state,dt.now().strftime("%Y%m%d%H%M%S"))
         f = open(filename, "wb+")
 
         if self.fips_process == False:

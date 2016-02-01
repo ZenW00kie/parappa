@@ -14,6 +14,7 @@ def main():
     edate = conf_args.date
     number_calls = conf_args.calls
     test = conf_args.test
+    party = conf_args.party
     host = conf_args.host
     db_name = conf_args.database_name
     db_user = conf_args.username
@@ -27,7 +28,7 @@ def main():
     while number_calls > 0:
         print "Election Feed for ", state, " on ", edate
 
-        APReporting(state, edate, test, db_user, db_pword, host, db_name, bucket)
+        APReporting(state, edate, test, party, db_user, db_pword, host, db_name, bucket)
 
         if state == "IA" and ms_newresult == 0:
             MSReporting(bucket)

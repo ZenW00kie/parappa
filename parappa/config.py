@@ -26,6 +26,11 @@ class ConfigPaRappa:
                             required = False,
                             default = False
                             )
+        parser.add_argument("-p", "--party",
+                            help = "Party for results [GOP OR Dem]",
+                            required = True,
+                            type = str
+                            )
         parser.add_argument("-H", "--host",
                             help = "Database host",
                             required = False,
