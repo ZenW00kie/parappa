@@ -33,10 +33,10 @@ def main():
 
         prev_results = ap.votecounter()
 
-        # if state == "IA" and ms_newresult == 0 and party == 'GOP':
-        #     MSReporting(bucket)
-        # else:
-        #     pass
+        if state == "IA" and ms_newresult == 0 and party == 'GOP':
+            MSReporting(bucket)
+        else:
+            pass
 
         #Make Microsoft calls every minute as that is their refresh rate
         if ms_newresult == 5:
