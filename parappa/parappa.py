@@ -21,6 +21,7 @@ def main():
     db_pword = conf_args.password
     bucket = conf_args.bucket
     ms_newresult = 0
+    prev_results = 0
     logging.captureWarnings(True)
 
     clear = lambda: os.system("cls" if os.name == "nt" else "clear")
@@ -28,7 +29,9 @@ def main():
     while number_calls > 0:
         print "Election Feed for ", state, " on ", edate
 
-        APReporting(state, edate, test, party, db_user, db_pword, host, db_name, bucket)
+        ap = APReporting(state, edate, test, party, db_user, db_pword, host, db_name, bucket, prev_results)
+
+        prev_results = ap.votecounter()
 
         # if state == "IA" and ms_newresult == 0 and party == 'GOP':
         #     MSReporting(bucket)

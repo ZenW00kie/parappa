@@ -5,7 +5,7 @@ from boto_client import BotoClient
 
 class APReporting:
 
-    def __init__(self, st, edate, test,party, db_user, db_pword, host, db_name, s3):
+    def __init__(self, st, edate, test,party, db_user, db_pword, host, db_name, s3,old_results):
         print "Requesting from AP API"
         apapi_call = APICalls("AP", st, edate, test, party)
         ap_top = apapi_call.ap_topline
@@ -14,26 +14,29 @@ class APReporting:
         if ap_top != None:
             print "Most recent results for ", st
             print "Precincts reporting: ", ap_top["precinctsReportingPct"],"%"
-            votetotal = 0
+            self.votetotal = 0
             for candidate in ap_top["candidates"]:
-                votetotal += candidate["voteCount"]
+                self.votetotal += candidate["voteCount"]
 
-            if votetotal == 0:
+            if self.votetotal == 0:
                 for candidate in ap_top["candidates"]:
                     print candidate["last"],": ",candidate["voteCount"],"votes"
             else:
                 for candidate in ap_top["candidates"]:
-                    print candidate["last"],": ",round((float(candidate["voteCount"])/votetotal)*100,2),"% ",candidate["voteCount"],"votes"
+                    print candidate["last"],": ",round((float(candidate["voteCount"])/self.votetotal)*100,2),"% ",candidate["voteCount"],"votes"
 
             election = ElectionStrategies()
             filename = election.ap_init(st, ap_results,party)
 
             if host == None:
                 pass
-            else:
+            elif self.votetotal != old_results:
                 election.widen_table(filename)
                 DatabaseConnector(db_user, db_pword, host, db_name, filename, st)
                 DatabaseConnector(db_user, db_pword, host, db_name, "apwide.csv", st)
+            else:
+                print "No new results to write to DB"
+                pass
 
             BotoClient(filename, s3)
 
@@ -41,3 +44,6 @@ class APReporting:
 
         else:
             print "Confirm AP has not started streaming results"
+
+    def votecounter(self):
+        return self.votetotal
