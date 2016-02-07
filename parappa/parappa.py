@@ -21,7 +21,7 @@ def main():
     db_pword = conf_args.password
     bucket = conf_args.bucket
     ms_newresult = 0
-    prev_results = 0
+    prev_result = 0
     logging.captureWarnings(True)
 
     clear = lambda: os.system("cls" if os.name == "nt" else "clear")
@@ -29,14 +29,14 @@ def main():
     while number_calls > 0:
         print "Election Feed for ", state, " on ", edate
 
-        ap = APReporting(state, edate, test, party, db_user, db_pword, host, db_name, bucket, prev_results)
+        ap = APReporting(state, edate, test, party, db_user, db_pword, host, db_name, bucket, prev_result)
 
-        prev_results = ap.votecounter()
+        prev_result = ap.votecounter()
 
-        # if state == "IA" and ms_newresult == 0 and party == 'GOP':
-        #     MSReporting(bucket)
-        # else:
-        #     pass
+        if state == "IA" and ms_newresult == 0 and party == 'GOP':
+            MSReporting(bucket)
+        else:
+            pass
 
         #Make Microsoft calls every minute as that is their refresh rate
         if ms_newresult == 5:

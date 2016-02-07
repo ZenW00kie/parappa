@@ -5,7 +5,7 @@ from boto_client import BotoClient
 
 class APReporting:
 
-    def __init__(self, st, edate, test,party, db_user, db_pword, host, db_name, s3,old_results):
+    def __init__(self, st, edate, test,party, db_user, db_pword, host, db_name, s3, old_votes):
         print "Requesting from AP API"
         apapi_call = APICalls("AP", st, edate, test, party)
         ap_top = apapi_call.ap_topline
@@ -30,13 +30,12 @@ class APReporting:
 
             if host == None:
                 pass
-            elif self.votetotal != old_results:
+            elif old_votes != self.votetotal:
                 election.widen_table(filename)
                 DatabaseConnector(db_user, db_pword, host, db_name, filename, st)
                 DatabaseConnector(db_user, db_pword, host, db_name, "apwide.csv", st)
             else:
-                print "No new results to write to DB"
-                pass
+                print "No new results to load"
 
             BotoClient(filename, s3)
 
