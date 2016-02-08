@@ -21,7 +21,7 @@ def main():
     db_pword = conf_args.password
     bucket = conf_args.bucket
     ms_newresult = 0
-    prev_result = 0
+    prev_result = 0.0
     logging.captureWarnings(True)
 
     clear = lambda: os.system("cls" if os.name == "nt" else "clear")
