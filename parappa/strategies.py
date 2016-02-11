@@ -97,7 +97,8 @@ class ElectionStrategies:
                           "precinctsTotal",
                           "precinctsReporting",
                           "candidateLast",
-                          "voteCount"
+                          "voteCount",
+                          "state"
                       ])
 
         for ru in election_json:
@@ -108,7 +109,8 @@ class ElectionStrategies:
                               ru["precinctsTotal"],
                               ru["precinctsReporting"],
                               candidate["last"],
-                              candidate["voteCount"]
+                              candidate["voteCount"],
+                              self.state
                           ])
 
         f.close()
