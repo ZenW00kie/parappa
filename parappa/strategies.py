@@ -9,7 +9,7 @@ class ElectionStrategies:
 
     def ap_init(self,state, results, party):
         no_fips = ["NH"]
-        fips = ["IA"]
+        fips = ["IA","SC"]
         self.state = state
 
         if self.state in no_fips:
