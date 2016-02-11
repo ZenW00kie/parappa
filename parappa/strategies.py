@@ -43,10 +43,7 @@ class ElectionStrategies:
                                                           ],
                                                    columns="candidateLast"
                                                   )
-        if self.fips_process == False:
-            wide_results["state"] = self.state
-        else:
-          pass
+        wide_results["state"] = self.state
 
         wide_results.to_csv("apwide.csv", header = False)
 
