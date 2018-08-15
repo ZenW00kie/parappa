@@ -56,6 +56,11 @@ class ConfigPaRappa:
                             required = False,
                             default = None
                             )
+        parser.add_argument("-a", "--api-key",
+                            help = "AP API Key",
+                            required = True,
+                            default = None
+                            )
         arguments = parser.parse_args(args)
 
         return arguments
