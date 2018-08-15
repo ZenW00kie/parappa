@@ -1,6 +1,6 @@
-#The Junto Election Night Reporting System
+# The Junto Election Night Reporting System
 
-##Intro
+## Intro
 
 This is the election night tracker for the Jeb 2016 campaign, Pa Rappa.
 The tracker uses the Associated Press API for its main source of results.
@@ -9,7 +9,7 @@ Pa Rappa stores the election results in S3 as transactional files that update ev
 Pa Rappa also has the ability to write to PostgreSQL so, which is currently being used as the back-end for Tableau visualizations.
 
 
-##Things you should be aware of
+## Things you should be aware of
 
 1. Before using Pa Rappa please consult the necessary packages. It is important to set up Boto3 ahead of time using `aws configure` as Pa Rappa will use this to authenticate your access to S3.
 
@@ -18,7 +18,7 @@ Pa Rappa also has the ability to write to PostgreSQL so, which is currently bein
 3. The schema used for the visualization for each table that is being written to, has been pregenerated and so the wide transformed table may prove to be picky if the candidates don't line up. Please verify this on the day of the election ahead of results coming in.
 
 
-##Using Pa Rappa Tha Wrappa
+## Using Pa Rappa Tha Wrappa
 
 Pa Rappa makes calls to the AP's API for a certain election that the user must specify.
 The data is then saved in csv format to a S3 bucket within the Junto system called election-day.
