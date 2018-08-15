@@ -5,9 +5,9 @@ from boto_client import BotoClient
 
 class APReporting:
 
-    def __init__(self, st, edate, test,party, db_user, db_pword, host, db_name, s3, old_votes):
+    def __init__(self, st, edate, test,party, db_user, db_pword, host, db_name, s3, old_votes, api_key):
         print "Requesting from AP API"
-        apapi_call = APICalls("AP", st, edate, test, party)
+        apapi_call = APICalls("AP", st, edate, test, party, api_key)
         ap_top = apapi_call.ap_topline
         ap_results = apapi_call.ap_results
 
