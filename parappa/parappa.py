@@ -12,6 +12,7 @@ def main():
     conf_args = config.config()
     state = conf_args.state.upper()
     edate = conf_args.date
+    api_key = conf_args.api_key
     number_calls = conf_args.calls
     test = conf_args.test
     party = conf_args.party
@@ -29,7 +30,7 @@ def main():
     while number_calls > 0:
         print "Election Feed for ", state, " on ", edate
 
-        ap = APReporting(state, edate, test, party, db_user, db_pword, host, db_name, bucket, prev_result)
+        ap = APReporting(state, edate, test, party, db_user, db_pword, host, db_name, bucket, prev_result, api_key)
 
         prev_result = ap.votecounter()
 
