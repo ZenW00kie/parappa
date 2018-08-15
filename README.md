@@ -1,5 +1,7 @@
 # The Junto Election Night Reporting System
 
+<sub> Brought to you by the moles helping Jeb Bush </sub>
+
 ## Intro
 
 This is the election night tracker for the Jeb 2016 campaign, Pa Rappa.
@@ -37,4 +39,3 @@ The following arguments are made available to you:
 
   * required argument
 
-<sub> Brought to you by the moles helping Jeb Bush </sub>
