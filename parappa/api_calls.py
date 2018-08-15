@@ -4,18 +4,18 @@ import json
 
 class APICalls:
 
-    def __init__(self, service, state=None, edate=None, test=None, party=None):
+    def __init__(self, service, state=None, edate=None, test=None, party=None, api_key=None):
         if service == 'AP':
-            self.ap_topline, self.ap_results = self.__ap_request(state, edate, test, party)
+            self.ap_topline, self.ap_results = self.__ap_request(state, edate, test, party, api_key)
         elif service == 'MS':
             self.ms_topline, self.ms_results = self.__ms_request()
 
 ############################# PRIVATE FUNCTIONS  ###############################
 
-    def __ap_request(self, state=None, edate=None, test=None, party=None):
+    def __ap_request(self, state=None, edate=None, test=None, party=None, api_key=None):
         if test == "True":
             request_params={
-                "apiKey": "RfvlGfRM69HT4FqUrGBctEBpRbCANTsV",
+                "apiKey": api_key,
                 "statePostal": state,
                 "officeID": "P",
                 "level": "RU",
@@ -25,7 +25,7 @@ class APICalls:
             }
         else:
             request_params={
-                "apiKey": "RfvlGfRM69HT4FqUrGBctEBpRbCANTsV",
+                "apiKey": api_key",
                 "statePostal": state,
                 "officeID": "P",
                 "level": "RU",
